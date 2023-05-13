@@ -1,0 +1,56 @@
+<div class="busqueda">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Marvel_Logo.svg/1200px-Marvel_Logo.svg.png" alt="">
+  <input
+    [(ngModel)]="name"
+    placeholder="Search"
+    (input)="onInputChange()"
+    class="input"
+    name="buscar"
+  />
+  <div>
+    <span> Cantida </span>
+    <input
+      type="number"
+      class="input"
+      name=""
+      id=""
+      [(ngModel)]="cantida"
+      (input)="onInputChange()"
+      min="0"
+      max="100"
+    />
+  </div>
+
+  <div>
+    <span> Tiene Description</span>
+    <input type="checkbox" name="" id="" [(ngModel)]="select" />
+  </div>
+  <div>
+    <span>Tiene Imagen </span>
+    <input type="checkbox" name="" id="" [(ngModel)]="imagen" />
+  </div>
+  <div>
+    <span>Ver description </span>
+    <input type="checkbox" name="" id="" [(ngModel)]="mostrar" />
+  </div>
+</div>
+<div class="container">
+  <div
+    *ngFor="let result of (personaje$ | async)?.data?.results?.reverse()"
+    [ngStyle]="{
+      display:
+        (result.description?.length == 0 && select) ||
+        (result.thumbnail?.path?.includes('image_not_available') && imagen)
+          ? 'none'
+          : 'flex'
+    }"
+  >
+    <h3>{{ result.name }}</h3>
+    <img
+      [src]="result.thumbnail?.path + '.' + result.thumbnail?.extension"
+      alt=""
+    />
+    <p *ngIf="mostrar">{{ result.description }}</p>
+    <button (click)="inforPersonaje(result.id)">detalles</button>
+  </div>
+</div>

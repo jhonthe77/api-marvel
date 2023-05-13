@@ -1,0 +1,16 @@
+<div class="container">
+  <div
+    *ngFor="let result of (personajei$ | async)?.data?.results"
+    class="presonaje"
+  >
+    <img
+      [src]="result.thumbnail?.path + '.' + result.thumbnail?.extension"
+      alt=""
+    />
+    <div>
+      <h3>{{ result.name }}</h3>
+      <p>{{ result.description }}</p>
+      <button (click)="inforPersonaje()">Regresar</button>
+    </div>
+  </div>
+</div>
